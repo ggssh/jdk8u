@@ -13,3 +13,11 @@ test/nashorn/lib
 NashornProfile.txt
 **/JTreport/**
 **/JTwork/**
+a.out
+*.jar
+*.class
+gc.log
+/eval/logs/
+/eval/scratch/
+/scratch/
+init.txt

@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch Java Program",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/linux-x86_64-normal-server-release/jdk/bin/java",
+            "args": [
+                "-XX:+UseParNewGC",
+                "-Xms10g",
+                "-Xmx10g",
+                "-XX:NewSize=9g",
+                "-XX:MaxNewSize=9g",
+                "-XX:ParallelGCThreads=1",
+                "-XX:ConcGCThreads=1",
+                "-jar",
+                "/mnt/data1/yuanyizhe/benchmarks/dacapobench/benchmarks/dacapo-evaluation-git-20e72f36.jar",
+                "tradebeans",
+                "-t",
+                "16",
+                "-s",
+                "large"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb"
+        }
+    ]
+}

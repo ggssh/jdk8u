@@ -22,6 +22,7 @@
  *
  */
 
+#include <iostream>
 #include "precompiled.hpp"
 #include "gc_implementation/concurrentMarkSweep/concurrentMarkSweepGeneration.hpp"
 #include "gc_implementation/parNew/parNewGeneration.hpp"
@@ -930,6 +931,7 @@ void ParNewGeneration::collect(bool   full,
                                    workers->active_workers(),
                                    Threads::number_of_non_daemon_threads());
   workers->set_active_workers(active_workers);
+  // 对于当前场景n_gens==2
   assert(gch->n_gens() == 2,
          "Par collection currently only works with single older gen.");
   _next_gen = gch->next_gen(this);
@@ -1178,7 +1180,8 @@ oop ParNewGeneration::copy_to_survivor_space_avoiding_promotion_undo(
   oop forward_ptr;
 
   // Try allocating obj in to-space (unless too old)
-  if (dummyOld.age() < tenuring_threshold()) {
+  if (true) {
+  // if (dummyOld.age() < tenuring_threshold()) {
     new_obj = (oop)par_scan_state->alloc_in_to_space(sz);
     if (new_obj == NULL) {
       set_survivor_overflow(true);
@@ -1220,7 +1223,7 @@ oop ParNewGeneration::copy_to_survivor_space_avoiding_promotion_undo(
     // Restore the mark word copied above.
     new_obj->set_mark(m);
     // Increment age if obj still in new generation
-    new_obj->incr_age();
+    // new_obj->incr_age();
     par_scan_state->age_table()->add(new_obj, sz);
   }
   assert(new_obj != NULL, "just checking");
@@ -1307,16 +1310,22 @@ oop ParNewGeneration::copy_to_survivor_space_with_undo(
   oop forward_ptr;
 
   // Try allocating obj in to-space (unless too old)
-  if (dummyOld.age() < tenuring_threshold()) {
+  // if (true) {
+  // if (dummyOld.age() < tenuring_threshold()) {
     new_obj = (oop)par_scan_state->alloc_in_to_space(sz);
     if (new_obj == NULL) {
       set_survivor_overflow(true);
     }
-  }
+  // }
 
   if (new_obj == NULL) {
+    // TODOY when to-space is full, we should do minor gc instead of allocating obj tenured
     // Either to-space is full or we decided to promote
     // try allocating obj tenured
+    // GenCollectedHeap *gch = GenCollectedHeap::heap();
+    // Generation *gen0 = gch->get_gen(0);
+    // gen0->par_allocate(sz, true);
+    
     new_obj = _next_gen->par_promote(par_scan_state->thread_num(),
                                        old, m, sz);
 
@@ -1341,7 +1350,7 @@ oop ParNewGeneration::copy_to_survivor_space_with_undo(
     // Restore the mark word copied above.
     new_obj->set_mark(m);
     // Increment age if new_obj still in new generation
-    new_obj->incr_age();
+    // new_obj->incr_age();
     par_scan_state->age_table()->add(new_obj, sz);
   }
   assert(new_obj != NULL, "just checking");

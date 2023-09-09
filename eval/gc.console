@@ -1,0 +1,37 @@
+OpenJDK 64-Bit Server VM warning: Using the ParNew young collector with the Serial old collector is deprecated and will likely be removed in a future release
+--------------------------------------------------------------------------------
+IMPORTANT NOTICE:  This is NOT a release build of the DaCapo suite.
+Since it is not an official release of the DaCapo suite, care must be taken when
+using the suite, and any use of the build must be sure to note that it is not an
+offical release, and should note the relevant git hash.
+
+Feedback is greatly appreciated.   The preferred mode of feedback is via github.
+Please use our github page to create an issue or a pull request.
+    https://github.com/dacapobench/dacapobench.
+--------------------------------------------------------------------------------
+
+Using scaled threading model. 48 processors detected, 16 threads used to drive the workload, in a possible range of [1,32768]
+Version: daytrader svn-1904225 wildfly 26.1.3
+Nominal stats: NEP: 8, NES: 4, NET: 21, NEW: 0, NMH: 101, NML: 33, NMS: 0, NMU: 141
+Launching the server with timeout of 1500 seconds (use -f to adjust timeout dialation).
+===== DaCapo evaluation-git-20e72f36 tradebeans starting =====
+Resetting database and populating with 1098 stocks...
+Populating database with 49152 users...
+Finished repopulating database
+Running 32768 trade sessions directly on server
+Starting 599773 requests...
+Completed requests
+Completed 32768 trade sessions comprising 599773 trader actions
+	Home .................... 111351 (18.6%)
+	Portfolio ............... 52781 ( 8.8%)
+	Quote ................... 249193 (41.5%)
+	Buy ..................... 54108 ( 9.0%)
+	Sell .................... 51875 ( 8.6%)
+	Update ..................  8469 ( 1.4%)
+	Register ................  3230 ( 0.5%)
+	Login ................... 32768 ( 5.5%)
+	Logout .................. 35998 ( 6.0%)
+===== DaCapo evaluation-git-20e72f36 tradebeans PASSED in 394138 msec =====
+===== DaCapo simple tail latency: 50% 458 usec, 90% 5079 usec, 99% 21135 usec, 99.9% 36503 usec, 99.99% 164691 usec, max 196411 usec, measured over 599773 events =====
+===== DaCapo metered tail latency: 50% 28381 usec, 90% 230727 usec, 99% 501370 usec, 99.9% 527092 usec, 99.99% 538083 usec, max 560040 usec, measured over 599773 events =====
+Shutting down Wildfly...

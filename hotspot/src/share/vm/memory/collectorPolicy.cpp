@@ -664,6 +664,7 @@ HeapWord* GenCollectorPolicy::mem_allocate_work(size_t size,
     assert(gen0->supports_inline_contig_alloc(),
       "Otherwise, must do alloc within heap lock");
     if (gen0->should_allocate(size, is_tlab)) {
+    // if (true) {
       result = gen0->par_allocate(size, is_tlab);
       if (result != NULL) {
         assert(gch->is_in_reserved(result), "result not in heap");
@@ -949,9 +950,10 @@ bool GenCollectorPolicy::should_try_older_generation_allocation(
         size_t word_size) const {
   GenCollectedHeap* gch = GenCollectedHeap::heap();
   size_t gen0_capacity = gch->get_gen(0)->capacity_before_gc();
-  return    (word_size > heap_word_size(gen0_capacity))
-         || GC_locker::is_active_and_needs_gc()
-         || gch->incremental_collection_failed();
+  // return    (word_size > heap_word_size(gen0_capacity))
+  //        || GC_locker::is_active_and_needs_gc()
+  //        || gch->incremental_collection_failed();
+  return false;
 }
 
 

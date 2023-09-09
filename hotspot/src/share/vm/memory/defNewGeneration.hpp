@@ -265,9 +265,11 @@ protected:
     size_t overflow_limit    = (size_t)1 << (BitsPerSize_t - LogHeapWordSize);
 
     const bool non_zero      = word_size > 0;
+    // large obj
     const bool overflows     = word_size >= overflow_limit;
     const bool check_too_big = _pretenure_size_threshold_words > 0;
-    const bool not_too_big   = word_size < _pretenure_size_threshold_words;
+    // const bool not_too_big   = word_size < _pretenure_size_threshold_words;
+    const bool not_too_big   = true;
     const bool size_ok       = is_tlab || !check_too_big || not_too_big;
 
     bool result = !overflows &&

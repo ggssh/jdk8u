@@ -252,11 +252,13 @@ class Generation: public CHeapObj<mtGC> {
   // wish to exclude very large objects, for example, since, if allocated
   // often, they would greatly increase the frequency of young-gen
   // collection.
+  // TODOY 修改对于large object的判断
   virtual bool should_allocate(size_t word_size, bool is_tlab) {
     bool result = false;
     size_t overflow_limit = (size_t)1 << (BitsPerSize_t - LogHeapWordSize);
     if (!is_tlab || supports_tlab_allocation()) {
-      result = (word_size > 0) && (word_size < overflow_limit);
+      // result = (word_size > 0) && (word_size < overflow_limit);
+      result = (word_size > 0);
     }
     return result;
   }
